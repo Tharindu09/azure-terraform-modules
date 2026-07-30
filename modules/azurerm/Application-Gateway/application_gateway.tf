@@ -29,6 +29,16 @@ resource "azurerm_application_gateway" "app_gateway" {
     tier = "WAF_v2"
   }
 
+  ssl_policy {
+    policy_type          = "Custom"
+    min_protocol_version = "TLSv1_2"
+    cipher_suites = [
+      "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256",
+      "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+      "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+    ]
+  }
+
   autoscale_configuration {
     min_capacity = var.autoscale_configuration_min_capacity
     max_capacity = var.autoscale_configuration_max_capacity
